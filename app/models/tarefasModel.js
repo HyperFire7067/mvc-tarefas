@@ -103,7 +103,18 @@ const tarefasModel = {
         return erro;
     }
     },
+
+        showDeleted: async ()=>{
+        try{
+            const [linhas] = await pool.query("select * from tarefas");
+            return linhas;
+        }catch(erro){
+            return erro;
+        }
+    },
 }
+
+
 
 //exportar o objeto como um módulo do JS
 module.exports = {tarefasModel} 

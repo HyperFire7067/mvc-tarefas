@@ -98,14 +98,31 @@ router.get("/excluir", async (req, res) => {
     const id = req.query.id;
      try {
         const result = await tarefasModel.sdelete(id);
-        res.send(result);
         res.redirect("/");
     } catch (erro) {
         console.log(erro);
     }   
 })
 
+router.get("/mostrar-excluidas", async function (req, res) {
+    res.locals.moment = moment;
+    try {
+        const result = await tarefasModel.showDeleted();
+        console.log(result)
+        res.render("pages/index", { listaTarefas: result })
+    } catch (erro) {
+        console.log(erro);
+    }
+});
 
-
+router.get("/restaurar", async (req, res) => {
+    const id = req.query.id;
+    try {
+        const result = await tarefasModel.screate(id);
+        res.redirect("/");
+    } catch (erro) {
+        console.log(erro);
+    }
+});
 
 module.exports = router;

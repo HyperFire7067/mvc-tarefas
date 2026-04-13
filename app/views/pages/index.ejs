@@ -11,7 +11,8 @@
 <body>
     <h1>Lista de Tarefas</h1>
 
-    <button onclick="window.location='/nova-tarefa'">Nova tarefa</button> 
+    <button onclick="window.location='/nova-tarefa'">Nova tarefa</button>
+    <button onclick="window.location='/mostrar-excluidas'">Mostrar Excluídas</button>
     <br>
     <br>
     <table>
@@ -33,8 +34,12 @@
                     <td><%= item.nome_tarefa %></td>
                     <td><%= moment(item.prazo_tarefa).format('L') %></td>
                     <td><%= situacao[item.situacao_tarefa] %></td>
-                    <td><a href="/editar?id=<%= item.id_tarefa %>">Editar</a></td>
-                     <td><a href="/excluir?id=<%= item.id_tarefa %>">Excluir</a></td>
+                    <% if (item.status_tarefa == 0) { %>
+                        <td><a href="/restaurar?id=<%= item.id_tarefa %>">Restaurar</a></td>
+                    <% } else{ %>
+                        <td><a href="/editar?id=<%= item.id_tarefa %>">Editar</a></td>
+                        <td><a href="/excluir?id=<%= item.id_tarefa %>">Excluir</a></td>
+                    <% } %>
                 </tr>
             <% 
                 });
